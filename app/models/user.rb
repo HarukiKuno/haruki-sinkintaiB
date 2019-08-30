@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  attr_accessor :remember_token
   
   before_save { self.email = email.downcase }
   
@@ -35,7 +36,7 @@ class User < ApplicationRecord
  def remember
     self.remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))
- end
+  end
 
 
 

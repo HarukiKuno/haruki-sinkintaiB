@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update]
+  before_action :logged_in_user, only: [:show, :edit, :update]
+  before_action :correct_user, only: [:edit, :update]
+
   
   def show
-    @user = User.find(params[:id])
+   
     
   end
   
@@ -25,11 +29,10 @@ class UsersController < ApplicationController
   
   
   def edit
-    @user = User.find(params[:id])
+  
   end
   
   def update
-    @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       # 更新に成功した場合の処理を記述します。
       flash[:success] = "ユーザー情報を更新しました。"
@@ -45,5 +48,24 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   
   
+end
+
+
+def set_user
+  @user = User.find(params[:id])
+end
+
+
+def logged_in_user
+  unless logged_in?
+    flash[:danger] = "ログインしてください。"
+    redirect_to login_url
+  end
+end
+
+
+def correct_user
+
+  redirect_to(root_url) unless current_user?(@user)
 end
 end

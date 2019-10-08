@@ -41,7 +41,10 @@
     <tbody>
       <% @attendances.each do |day| %>
   <tr>
-    <td><%= link_to "残業申請", edit_basic_info1_user_path(@user), remote: true, class: "btn btn-success" %></td>
+    <td>
+      
+      <%= link_to "残業申請", edit_basic_info1_user_path(@user, params:{ day: day.worked_on, youbi: %w{日 月 火 水 木 金 土}[day.worked_on.wday] }), remote: true, class: "btn btn-primary" %>
+      </td>
     <td><%= l(day.worked_on, format: :short) %></td>
     <td><%= $days_of_the_week[day.worked_on.wday] %></td>
     <td>

@@ -30,11 +30,11 @@
       <tbody>
      
         <tr>
-         
+        
          <!-- 日付 -->
-          <td><%= Date.current.strftime('%m/%d') %></td>
+          <td><%= l(@day, format: :short) %></td>
           
-          <td><%= Time.now.strftime("#{%w(日 月 火 水 木 金 土)[Time.now.wday]}") %>  </td>
+          <td><%= @youbi %>  </td>
           
           
          
